@@ -122,4 +122,7 @@ C = torch.cat((A, B), dim=0)
 C
 D = torch.cat((A, B), dim=1)
 D
+# 也可以拼接三个张量
+E = torch.cat((A[:, 1:2], A, B), dim=1)
 E
+# torch.stack()一样的效果
