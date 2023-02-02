@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.10.27)  12 JAN 2023 21:11
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2022.10.27)  2 FEB 2023 18:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1131,24 +1131,24 @@ LaTeX Font Info:    Font shape `TU/texgyretermes(0)/b/n' will be
 ]
 LaTeX Font Info:    Font shape `TU/texgyretermes(0)/b/n' will be
 (Font)              scaled to size 17.28pt on input line 44.
-LaTeX Font Info:    Font shape `TU/texgyretermes(0)/b/n' will be
-(Font)              scaled to size 14.4pt on input line 48.
-LaTeX Font Info:    Font shape `TU/texgyretermes(0)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 54.
- [2] [3] [4] [5]
-Overfull \hbox (2.38531pt too wide) in paragraph at lines 105--106
-\TU/SimSun(0)/m/n/14.4 开 方 为 \TU/texgyretermes(0)/m/n/14.4 torch.sqrt(); \TU/SimSun(0)/m/n/14.4 平 方 根 的 倒 数 为 \TU/texgyretermes(0)/m/n/14.4 torch.rsqrt()\TU/SimSun(0)/m/n/14.4 。|  针 对 数 据 的 裁 剪，|  有 根 据 最 大 值 裁 剪 \TU/texgyretermes(0)/m/n/14.4 torch.clamp_max();
- []
-
-[6]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 129.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 48.
 
 
 LaTeX Font Warning: Font shape `TU/FangSong(0)/m/it' undefined
-(Font)              using `TU/FangSong(0)/m/n' instead on input line 132.
+(Font)              using `TU/FangSong(0)/m/n' instead on input line 50.
 
-[7] [8] (./elegantnote-cn.aux)
+LaTeX Font Info:    Font shape `TU/texgyretermes(0)/b/n' will be
+(Font)              scaled to size 14.4pt on input line 60.
+[2]
+LaTeX Font Info:    Font shape `TU/texgyretermes(0)/m/n' will be
+(Font)              scaled to size 7.0pt on input line 66.
+ [3] [4] [5] [6] [7] [8] [9] [10] [11]
+Overfull \hbox (2.38531pt too wide) in paragraph at lines 236--237
+\TU/SimSun(0)/m/n/14.4 开 方 为 \TU/texgyretermes(0)/m/n/14.4 torch.sqrt(); \TU/SimSun(0)/m/n/14.4 平 方 根 的 倒 数 为 \TU/texgyretermes(0)/m/n/14.4 torch.rsqrt()\TU/SimSun(0)/m/n/14.4 。|  针 对 数 据 的 裁 剪，|  有 根 据 最 大 值 裁 剪 \TU/texgyretermes(0)/m/n/14.4 torch.clamp_max();
+ []
+
+[12] [13] (./elegantnote-cn.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1159,12 +1159,12 @@ Package logreq Info: Writing requests to 'elegantnote-cn.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37647 strings out of 476179
- 790536 string characters out of 5806897
- 1614774 words of memory out of 5000000
- 57760 multiletter control sequences out of 15000+600000
+ 38070 strings out of 476179
+ 793769 string characters out of 5806897
+ 1634776 words of memory out of 5000000
+ 58183 multiletter control sequences out of 15000+600000
  474993 words of font info for 96 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 103i,12n,107p,743b,1905s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 103i,12n,107p,743b,1787s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on elegantnote-cn.pdf (8 pages).
+Output written on elegantnote-cn.pdf (13 pages).

@@ -44,6 +44,18 @@
 \subsection{张量}
 
 张量一共有八种，但是默认的数据类型是32位浮点型（torch.FloatTensor），可以通过\\torch.set\_default\_tensor\_type()函数设置默认的数据类型，但是该函数只支持设置浮点型的数据类型。
+\begin{lstlisting}
+import numpy as np
+import torch
+# 获取张量的数据类型
+torch.tensor([1.2, 3.4]).dtype
+# 更改默认类型
+torch.set_default_tensor_type(torch.DoubleTensor)
+torch.tensor([1.2, 3.4]).dtype
+torch.set_default_tensor_type(torch.FloatTensor)
+# 获取默认的数据类型
+torch.get_default_dtype()
+\end{lstlisting}
 
 \subsubsection{张量的生成}
 
@@ -61,12 +73,60 @@
   \item D.new\_ones((3,3)): $3\times 3$的全1张量。
 \end{itemize}
 
+\begin{lstlisting}
+# list可以通过torch.tensor来构造张量
+lst = [[1.0, 1.0], [2, 2]]
+type(lst)
+A = torch.tensor(lst)
+A
+# 张量的属性
+A.shape
+A.size()
+A.numel()
+\end{lstlisting}
 张量和NumPy数组可以相互转换。将NumPy数组转化为Pytorch张量，可以使用torch.as\_tensor()和torch.from\_numpy()，但是需要注意转换成的NumPy数组默认是64位浮点型数据。对于张量，使用torch.numpy()即可转化为NumPy数组。
 
 可以通过相关随机数来生成张量，并且可以指定生成随机数的分布函数等，在生成随机数之前，可以使用torch.manual\_seed()，指定生成随机数的种子，保证生成随机数是可重复出现的。如使用torch.normal()生成服从高斯的随机数，在该函数中，通过mean指定随机数的均值，std参数指定标准差，如果这两个参数只有一个元素则只生成一个随机数，如果有多个值，可以生成多个随机数。也可以使用torch.rand()函数，在区间[0,1]上生成服从均匀分布的张量。使用torch.randn()函数则可生成服从标准正态分布的随机数张量。使用torch.randperm(n)函数，可以将$0\sim n$（包含0，不包含n）之间的整数进行随机排序后输出。
 
 在Pytorch中可以使用torch.arange()和torch.linspace()来生成张量，前者的参数start指定开始，end指定结束，step指定步长；后者是在范围内生成固定数量的等间隔张量；torch.logspace()则可生成以对数为间隔的张量。
+\begin{lstlisting}
+# 计算梯度的张量
+B = torch.tensor((1, 2, 3), dtype=torch.float32, requires_grad=True)
+B
 
+# 计算sum(B**2)的梯度
+y = B.pow(2).sum()
+y.backward()
+B.grad
+
+# 创建具有特定大小的张量
+D = torch.Tensor(2, 3)
+D
+# 根据已有数据创建张量
+C = torch.Tensor(lst)
+C
+# 创建一个与D相同大小和类型的全1张量
+E = torch.ones_like(D)
+E
+
+# 张量和numpy数组相互转换
+F = np.ones((3, 3))
+F
+Ftensor = torch.as_tensor(F)
+Ftensor
+FFtendor = Ftensor.float()
+FFtendor.dtype
+Ftensor.numpy()
+
+# 随机数生成张量
+torch.manual_seed(123)
+A = torch.normal(mean=0.0, std=torch.tensor(1.0))
+A
+
+# 其他生成张量的函数
+torch.arange(start=0, end=10, step=2)
+torch.linspace(start=1, end=10, steps=5)
+\end{lstlisting}
 \subsubsection{张量操作}
 
 生成张量后，有时需要改变张量的形状、获取或改变张量中的元素、将张量进行拼接和拆分等。
@@ -82,6 +142,77 @@ torch.unsqueeze()可以在张量的指定维度插入新的维度得到维度提
 torch.tril()可以获取张量下三角部分的内容，而将上三角的元素设置为0；torch.triu()则相反;\\torch.diag()可以获取矩阵张量的对角线元素，或者提供一个向量生成一个矩阵张量。上述三个函数可以通过diagonal参数来控制所要考虑的对角线。torch.diag()提供对角线元素，来生成对角矩阵。
 
 Pytorch中提供了将多个张量拼接为1个张量，或者将一个张量拆分为几个张量的函数，其中torch.cat()将多个张量在指定的维度进行拼接，得到新的张量。torch.stack()可以将多个张量按照指定的维度进行拼接。torch.chunk()可以将张量分割为特定数量的块；torch.split()在将张量分割为特定数量的块时，可以指定每个块的大小。
+\begin{lstlisting}
+  # 设置张量形状的大小
+A = torch.arange(12.0).reshape(4, 3)
+A
+
+# 输入一个张量，然后，改变形状,给出一个行，然后用-1来代替列
+torch.reshape(input=A, shape=(2, -1))
+torch.reshape(input=A, shape=(3, -1))
+
+A.resize_(2, 6)
+
+# 插入新张量
+A = torch.arange(12.0).reshape(2, 6)
+B = torch.unsqueeze(A, dim=0)  # 在第一个维度前插入
+B.shape
+
+C = B.unsqueeze(dim=3)
+C.shape
+# 移除指定维度为1的维度
+E = torch.squeeze(C, dim=0)
+E.shape
+# 用expand方法拓展张量
+A = torch.arange(3)
+A
+B = A.expand(3, -1)
+B
+
+# 按照某个张量的形状进行拓展
+C = torch.arange(6).reshape(2, 3)
+B = A.expand_as(C)
+B
+# 把一个张量看作整体进行重复填充
+D = B.repeat(1, 2, 2)
+D
+D.shape
+
+# 获取张量的元素
+A = torch.arange(12).reshape(1, 3, 4)
+A[0]
+# 第0维度，前两行，列全都要
+A[0, 0:2, :]
+# 第0维度，最后一行，-1到-4列
+A[0, -1, -4:-1]
+# 根据bool值进行索引
+B = -A
+# 当A>5为true时返回A对应位置值，为false返回B的值
+torch.where(A > 5, A, B)
+# 获取大于5的元素
+A[A > 5]
+# 获取张量的上三角或下三角的部分
+torch.tril(A, diagonal=0)
+torch.tril(A, diagonal=1)
+torch.triu(A, diagonal=0)
+# 获得张量对角线的元素
+C = A.reshape(3, 4)
+C
+torch.diag(C, diagonal=0)
+torch.diag(C, diagonal=1)
+torch.diag(torch.tensor([1, 2, 3]))
+# 张量的拼接和拆分
+A = torch.arange(6.0).reshape(2, 3)
+B = torch.linspace(0, 10, 6).reshape(2, 3)
+C = torch.cat((A, B), dim=0)
+C
+D = torch.cat((A, B), dim=1)
+D
+# 也可以拼接三个张量
+E = torch.cat((A[:, 1:2], A, B), dim=1)
+E
+# torch.stack()一样的效果
+\end{lstlisting}
 
 \subsubsection{张量计算}
 
@@ -123,28 +254,6 @@ Pytorch中提供了将多个张量拼接为1个张量，或者将一个张量拆
 在torch中的torch.autograd模块，提供了实现任意标量值函数自动求导的类和函数，针对一个张量只需要设置参数$requires_grad=True$，通过相关计算即可输出其在传播过程中的梯度信息。在Pytorch中生成一个矩阵张量x，并且y=sum($x^2+2x+1$)，计算出y在x上的导数，程序如下。
 
 也可以通过y.backward()来计算y在x的每个元素上的导数。
-
-% lstlisting环境
-\begin{lstlisting}
-  import random
-  import collections
-  Card = collections.namedtuple('Card', ['rank', 'suit'])
-  # 一个叫做 FrenchDesk 的类。a class named FrenchDesk.
-  class FrenchDesk:
-      ranks = [str(n) for n in range(2, 11)] + list('JQKA')
-      suits = 'spades diamonds clubs hearts'.split()
-      
-      def __init__(self):
-          self._cards = [Card(rank, suit) for rank in self.ranks for suit in self.suits]
-          
-      def __len__(self):
-          return len(self._cards)
-          
-      def __getitem__(self, position):
-          return self._cards[position]
-  desk = FrenchDesk()
-\end{lstlisting}
-
 
 %\printbibliography[heading=bibintoc, title=\ebibname]
 
